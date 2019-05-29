@@ -124,22 +124,22 @@ def coronada(mov, J):
 
 def bloqueo(mov, tablero):
     ultimoMov = mov[len(mov)-1]
-    print("ultimoMov:",ultimoMov)
+    #print("ultimoMov:",ultimoMov)
     penultimoMov = mov[len(mov)-2]
-    print("penultimoMov:",penultimoMov)
+    #print("penultimoMov:",penultimoMov)
     miFicha = tablero[mov[0][0]][mov[0][1]]
-    print("MI FICHA ES:",miFicha)
-    print(mov)
+    #print("MI FICHA ES:",miFicha)
+    #print(mov)
     resultado=0
     estadoLateral = 4 #{-1=ocupadoPorRival, 0=desprotegido,1=respaldo,2=amenaza,3=amenazaReina,4=vacio}
     estadoDiagonal = 4
     estadoSuperior = 4
     for i in range(-1,2):
         ii=ultimoMov[0]+i
-        print("ii",ii)
+        #print("ii",ii)
         for j in range(-1,2):
             jj=ultimoMov[1]+j
-            print("jj",jj)
+            #print("jj",jj)
             if ii in range(0,8) and jj in range(0,8) and j!=0 and i!=0 and ii!=penultimoMov[0] and jj!=penultimoMov[1] and (jj+j) in range(0,8) and (ii+i) in range(0,8):
                 if(ii == penultimoMov[0]):
                     if(tablero[ii][jj] == miFicha or tablero[ii][jj].upper()==miFicha):
