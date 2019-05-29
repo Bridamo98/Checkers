@@ -379,12 +379,17 @@ while not fin:
 
 tiempoTotal = time.time() - tiempoTotal
 print ""
+f=open("resultados","a+")
 if ganador == 1:
     print "gana jugador : ", J1['pieces'],"(",L[0],")"
+    f.write(L[0])
 elif ganador == 2:
     print "gana jugador : ", J2['pieces'],"(",L[1],")"
+    f.write(L[1])
 else:
     print "empate"
+f.write("\n")
+f.close()
 print "partida terminada en ", k, " turnos   tiempo total : ",tiempoTotal
 print "tiempos por jugador: ",L[0],": ",TJ1,L[1],": ",tiempoTotal-TJ1
 
