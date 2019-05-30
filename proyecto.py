@@ -232,7 +232,7 @@ def player(E, J):
     if len(M) == 0:
         return None
     M_sorted = deepcopy(M)
-    M_sorted = sorted(M_sorted, key=lambda ele: bloqueo(ele, E), reverse=True)
+    M_sorted = sorted(M_sorted, key=lambda ele: bloqueo(ele, E)+coronada(ele,J,E)+comidas(ele,E), reverse=True)
     if M_sorted[0] == 0:
         j = rand.choice(M)
     else:
