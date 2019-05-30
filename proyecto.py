@@ -1,10 +1,10 @@
 import random as rand
 from copy import deepcopy
+import math
 
 vComida=2
 vCCoronada=3
 vCoronar=4
-
 
 BLANCO = '-'
 TOT = 0
@@ -91,41 +91,44 @@ def comidas(mov, tablero):
             if siguiente[0]-jugada[0] > 0:
                 if siguiente[1]-jugada[1] > 0:
                     if tablero[jugada[0]+1][jugada[1]+1] == "O" or tablero[jugada[0]+1][jugada[1]+1] == "X":
-                        cuenta = cuenta + 3
+                        cuenta = cuenta + vCCoronada
                     else:
-                        cuenta = cuenta + 2
+                        cuenta = cuenta + vComida
                 else:
                     if tablero[jugada[0]+1][jugada[1]-1] == "O" or tablero[jugada[0]+1][jugada[1]-1] == "X":
-                        cuenta = cuenta+3
+                        cuenta = cuenta+vCCoronada
                     else:
-                        cuenta = cuenta+2
+                        cuenta = cuenta+vComida
             else:
                 if siguiente[1]-jugada[1] > 0:
                     if tablero[jugada[0]-1][jugada[1]+1] == "O" or tablero[jugada[0]-1][jugada[1]+1] == "X":
-                        cuenta = cuenta + 3
+                        cuenta = cuenta + vCCoronada
                     else:
-                        cuenta = cuenta + 2
+                        cuenta = cuenta + vComida
                 else:
                     if tablero[jugada[0]-1][jugada[1]-1] == "O" or tablero[jugada[0]-1][jugada[1]-1] == "X":
-                        cuenta = cuenta+3
+                        cuenta = cuenta+vCCoronada
                     else:
-                        cuenta = cuenta+2
+                        cuenta = cuenta+vComida
     return cuenta
 # end_def
 
 
-def coronada(mov, J):
+def coronada(mov, J, tablero):
+    actual = mov[0]
+    x = actual[0]
+    y = actual[1]
     if J in J1['pieces']:
-        if mov[len(mov)-1][1] == 7:
-            return 4
+        if mov[len(mov)-1][1] == 7 and tablero[x][y] != "X":
+            return vCoronar
         else:
             return 0
     else:
-        if mov[len(mov)-1][1] == 0:
-            return 4
+        if mov[len(mov)-1][1] == 0 and tablero[x][y] != "O":
+            return vCoronar
         else:
             return 0
-#end def
+
 
 def bloqueo(mov, tablero):
     ultimoMov = mov[len(mov)-1]
@@ -226,16 +229,20 @@ def bloqueo(mov, tablero):
     #end if
     return resultado
 #end def
+
 def player(E, J):
     jj = None
     M = []
     cuenta = []
+    # SE SACAN LAS JUGADAS POSIBLES
     if J in J1['pieces']:
         M = moves(E, J1)
     elif J in J2['pieces']:
         M = moves(E, J2)
     if len(M) == 0:
         return None
+
+    # AQUI ES DONDE SE APLICAN LAS ESTRATEGIAS Y SE VAN SUMANDO Y RESTANDO PUNTOS
     M_sorted = deepcopy(M)
     M_sorted = sorted(M_sorted, key=lambda ele: bloqueo(ele, E)+coronada(ele,J,E)+comidas(ele,E), reverse=True)
     if M_sorted[0] == 0:
