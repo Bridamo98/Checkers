@@ -1,6 +1,11 @@
 import random as rand
 from copy import deepcopy
 
+vComida=2
+vCCoronada=3
+vCoronar=4
+
+
 BLANCO = '-'
 TOT = 0
 J1 = {
